@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-crud-table',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./crud-table.component.less']
 })
 export class CrudTableComponent implements OnInit {
+
+  @Input() dataSource;
+  @Input() displayedColumns;
 
   constructor() { }
 
