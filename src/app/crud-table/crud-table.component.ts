@@ -19,6 +19,8 @@ export class CrudTableComponent implements OnInit, OnChanges, OnDestroy {
   editRows = new BehaviorSubject<any[]>([{ position: 0 }]);
   dataView = new BehaviorSubject<any[]>([]);
 
+  editingIndex = -1;
+
   initialPageState = {
     paging: {
       pageIndex: 0,
@@ -34,7 +36,6 @@ export class CrudTableComponent implements OnInit, OnChanges, OnDestroy {
 
   viewsub;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor() {
 
   }
@@ -44,8 +45,7 @@ export class CrudTableComponent implements OnInit, OnChanges, OnDestroy {
       this.dataView.next(this.processData(this.dataSource, ps));
     })
     this.finalDataView = combineLatest(this.editRows, this.dataView).pipe(
-      map(([edits, dataview]) => edits.concat(dataview)),
-      tap(view => console.log(view))
+      map(([edits, dataview]) => edits.concat(dataview))
     );
   }
 
@@ -105,6 +105,13 @@ export class CrudTableComponent implements OnInit, OnChanges, OnDestroy {
     }
     return r * (isAsc ? 1 : -1);
   }
+
+  handleEditClick(ev, index, element) {
+    if (this.editingIndex !== index)
+      this.editingIndex = index;
+    else this.editingIndex = -1;
+  }
+
 
   ngOnDestroy() {
     this.viewsub.unsubscribe();
