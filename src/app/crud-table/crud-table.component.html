@@ -11,9 +11,12 @@
   <ng-container matColumnDef="Edit">
     <th mat-header-cell *matHeaderCellDef> Edit </th>
     <td mat-cell *matCellDef="let element; let i = index">
-      <button (click)="handleEditClick($event, i, element)">
-        <mat-icon>edit</mat-icon>
-      </button>
+
+      <ng-container
+        *ngTemplateOutlet="(i !== editingIndex)? nonEditingButton : editingButtons; context: { $implicit: i }">
+      </ng-container>
+
+
     </td>
   </ng-container>
 
@@ -38,4 +41,23 @@
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="dataSource.length" (page)="handlePageChange($event)"
   showFirstLastButtons></mat-paginator>
 
-<ng-template #editor> editor</ng-template>
+<ng-template #editor>
+  <input class="editInput" matInput placeholder="Edit">
+</ng-template>
+
+
+
+<ng-template #nonEditingButton let-i>
+  <button (click)="handleEditClick($event, i)">
+    <mat-icon>edit</mat-icon>
+  </button>
+</ng-template>
+
+<ng-template #editingButtons let-i>
+    <button>
+      <mat-icon>save</mat-icon>
+    </button>
+    <button (click)="handleCancel($event, i)">
+      <mat-icon>cancel</mat-icon>
+    </button>
+</ng-template>

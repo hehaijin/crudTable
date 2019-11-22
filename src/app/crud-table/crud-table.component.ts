@@ -42,6 +42,7 @@ export class CrudTableComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     this.viewsub = this.pageState.subscribe(ps => {
+      this.editingIndex = -1; //reset editing index;
       this.dataView.next(this.processData(this.dataSource, ps));
     })
     this.finalDataView = combineLatest(this.editRows, this.dataView).pipe(
@@ -107,9 +108,11 @@ export class CrudTableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   handleEditClick(ev, index, element) {
-    if (this.editingIndex !== index)
-      this.editingIndex = index;
-    else this.editingIndex = -1;
+    this.editingIndex = index;
+  }
+
+  handleCancel(ev, i) {
+    this.editingIndex = -1;
   }
 
 
