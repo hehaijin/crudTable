@@ -13,6 +13,7 @@ import { map, tap } from 'rxjs/operators';
 })
 export class CrudTableComponent implements OnInit, OnChanges, OnDestroy {
 
+  @Input() caption;
   @Input() dataSource;
   @Input() displayedColumns;
   finalDataView;
@@ -20,7 +21,8 @@ export class CrudTableComponent implements OnInit, OnChanges, OnDestroy {
   dataView = new BehaviorSubject<any[]>([]);
 
   editingIndex = -1;
-
+  addingNewLine = false;
+  tempRow = {};
   initialPageState = {
     paging: {
       pageIndex: 0,
@@ -115,9 +117,16 @@ export class CrudTableComponent implements OnInit, OnChanges, OnDestroy {
     this.editingIndex = -1;
   }
 
+  handleAddNew() {
+    this.addingNewLine = true;
+    this.editRows.next([this.tempRow]);
+  }
 
   ngOnDestroy() {
     this.viewsub.unsubscribe();
   }
 
+  checkwhen() {
+    return true;
+  }
 }

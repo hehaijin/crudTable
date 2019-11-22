@@ -1,6 +1,10 @@
+
+<button (click)="handleAddNew()">
+  <mat-icon>add</mat-icon>
+</button>
 <table mat-table matSort (matSortChange)="handleSort($event)" [dataSource]="finalDataView" class="mat-elevation-z8"
   style="width:100%">
-  <caption>Monthly savings</caption>
+  <caption>{{caption}}</caption>
   <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
     <th mat-header-cell *matHeaderCellDef mat-sort-header disabled="false"> {{col}} </th>
     <td mat-cell *matCellDef="let element;let i = index">
@@ -11,12 +15,9 @@
   <ng-container matColumnDef="Edit">
     <th mat-header-cell *matHeaderCellDef> Edit </th>
     <td mat-cell *matCellDef="let element; let i = index">
-
       <ng-container
         *ngTemplateOutlet="(i !== editingIndex)? nonEditingButton : editingButtons; context: { $implicit: i }">
       </ng-container>
-
-
     </td>
   </ng-container>
 
@@ -54,10 +55,10 @@
 </ng-template>
 
 <ng-template #editingButtons let-i>
-    <button>
-      <mat-icon>save</mat-icon>
-    </button>
-    <button (click)="handleCancel($event, i)">
-      <mat-icon>cancel</mat-icon>
-    </button>
+  <button>
+    <mat-icon>save</mat-icon>
+  </button>
+  <button (click)="handleCancel($event, i)">
+    <mat-icon>cancel</mat-icon>
+  </button>
 </ng-template>
