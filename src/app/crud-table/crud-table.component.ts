@@ -115,6 +115,9 @@ export class CrudTableComponent implements OnInit, OnChanges, OnDestroy {
     this.editingIndex = -1;
   }
 
+  handleSave(i) {
+    
+  }
 
   ngOnDestroy() {
     this.viewsub.unsubscribe();

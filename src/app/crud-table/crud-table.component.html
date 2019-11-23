@@ -54,10 +54,10 @@
 </ng-template>
 
 <ng-template #editingButtons let-i>
-    <button>
-      <mat-icon>save</mat-icon>
-    </button>
-    <button (click)="handleCancel($event, i)">
-      <mat-icon>cancel</mat-icon>
-    </button>
+  <button>
+    <mat-icon (click)="handleSave(i)">save</mat-icon>
+  </button>
+  <button (click)="handleCancel($event, i)">
+    <mat-icon>cancel</mat-icon>
+  </button>
 </ng-template>
